@@ -364,6 +364,9 @@ paths:
                       type: string
                       format: date
                       description: The time for when the room will be expired, expressed in ISO 8601 format.
+                    expire_after_use:
+                      type: boolean
+                      description: 'Close the room after a session ends. Only relevant for long_term rooms.'
        responses:
         '200':
           description: OK
@@ -488,6 +491,9 @@ components:
           type: string
           format: date
           description: 'The time for when the room will be expired, expressed in ISO 8601 format'
+        expire_after_use:
+          type: boolean
+          description: 'Close the room after a session ends. Only relevant for long_term rooms.'
         _links:
           type: object
           properties:
@@ -525,6 +531,9 @@ components:
           description: The time for when the room will be expired, expressed in ISO 8601 format. Required only for long-term room creation.
         recording_options:
           $ref: '#/components/schemas/RecordingOptions'
+        expire_after_use:
+          type: boolean
+          description: 'Close the room after a session ends. Only relevant for long_term rooms.'
     RecordingOptions:
       type: object
       properties:
