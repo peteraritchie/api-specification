@@ -189,254 +189,254 @@ paths:
                   $ref: '#/components/schemas/DialInNumber'
 x-webhooks:
   meeting-events:
-	  room-expired:
-	    post:
-	      summary: Room Expired Callback
-	      operationId: room-expired
-	      description: 'A notification about a room becoming inactive, which means no more sessions can be created for it'
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'room:expired'
-	                room_id:
-	                  type: string
-	                  format: uuid
-	                room_type:
-	                  type: string
-	                  enum:
-	                    - instant
-	                    - long_term
-	                expires_at:
-	                  type: string
-	                  format: date
-	                  description: 'The time for when the room will be expired, expressed in ISO 8601 format'
-	                created_at:
-	                  type: string
-	                  format: date
-	                  description: 'The time for when the room was created, expressed in ISO 8601 format'
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  session-started:
-	    post:
-	      summary: Session Started Callback
-	      operationId: session-started
-	      description: A notification about a newly started session
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'session:started'
-	                session_id:
-	                  type: string
-	                room_id:
-	                  type: string
-	                  format: uuid
-	                started_at:
-	                  type: string
-	                  format: date-time
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  session-ended:
-	    post:
-	      summary: Session Ended Callback
-	      operationId: session-ended
-	      description: A notification about a session that has just ended
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'session:ended'
-	                session_id:
-	                  type: string
-	                room_id:
-	                  type: string
-	                  format: uuid
-	                started_at:
-	                  type: string
-	                  format: date-time
-	                ended_at:
-	                  type: string
-	                  format: date-time
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  recording-started:
-	    post:
-	      summary: Recording Started Callback
-	      operationId: recording-started
-	      description: A notification about recording being turned on in a specific session
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'recording:started'
-	                recording_id:
-	                  type: string
-	                  format: uuid
-	                session_id:
-	                  type: string
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  recording-ended:
-	    post:
-	      summary: Recording Ended Callback
-	      operationId: recording-stopped
-	      description: A notification about recording being turned off in a specific session
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'recording:ended'
-	                recording_id:
-	                  type: string
-	                  format: uuid
-	                session_id:
-	                  type: string
-	                started_at:
-	                  type: string
-	                  format: date-time
-	                ended_at:
-	                  type: string
-	                  format: date-time
-	                duration:
-	                  type: number
-	                  description: Duration of the recording in seconds
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  recording-ready:
-	    post:
-	      summary: Recording Ready Callback
-	      operationId: recording-ready
-	      description: A notification about recording ready to be downloaded
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'recording:ready'
-	                recording_id:
-	                  type: string
-	                  format: uuid
-	                session_id:
-	                  type: string
-	                room_id:
-	                  type: string
-	                  format: uuid
-	                started_at:
-	                  type: string
-	                  format: date-time
-	                ended_at:
-	                  type: string
-	                  format: date-time
-	                duration:
-	                  type: number
-	                  description: Duration of the recording in seconds
-	                url:
-	                  type: string
-	                  format: uri
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  participant-joined:
-	    post:
-	      summary: Participant Joined Callback
-	      operationId: participant-joined
-	      description: A notification about someone joining a specific session
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'session:participant:joined'
-	                participant_id:
-	                  type: string
-	                  format: uuid
-	                session_id:
-	                  type: string
-	                room_id:
-	                  type: string
-	                  format: uuid
-	                name:
-	                  type: string
-	                type:
-	                  type: string
-	                is_host:
-	                  description: indicates if this participant is the session's host
-	                  type: boolean
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
-	  participant-left:
-	    post:
-	      summary: Participant Left Callback
-	      operationId: participant-left
-	      description: A notification about someone leaving a specific session
-	      requestBody:
-	        required: true
-	        content:
-	          application/json:
-	            schema:
-	              properties:
-	                event:
-	                  type: string
-	                  enum:
-	                    - 'session:participant:left'
-	                participant_id:
-	                  type: string
-	                  format: uuid
-	                session_id:
-	                  type: string
-	                room_id:
-	                  type: string
-	                  format: uuid
-	                name:
-	                  type: string
-	                type:
-	                  type: string
-	                is_host:
-	                  description: indicates if this participant is the session's host
-	                  type: boolean
-	      responses:
-	        '204':
-	          description: Your server returns this code if it accepts the callback
+    room-expired:
+      post:
+        summary: Room Expired Callback
+        operationId: room-expired
+        description: 'A notification about a room becoming inactive, which means no more sessions can be created for it'
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'room:expired'
+                  room_id:
+                    type: string
+                    format: uuid
+                  room_type:
+                    type: string
+                    enum:
+                      - instant
+                      - long_term
+                  expires_at:
+                    type: string
+                    format: date
+                    description: 'The time for when the room will be expired, expressed in ISO 8601 format'
+                  created_at:
+                    type: string
+                    format: date
+                    description: 'The time for when the room was created, expressed in ISO 8601 format'
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    session-started:
+      post:
+        summary: Session Started Callback
+        operationId: session-started
+        description: A notification about a newly started session
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'session:started'
+                  session_id:
+                    type: string
+                  room_id:
+                    type: string
+                    format: uuid
+                  started_at:
+                    type: string
+                    format: date-time
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    session-ended:
+      post:
+        summary: Session Ended Callback
+        operationId: session-ended
+        description: A notification about a session that has just ended
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'session:ended'
+                  session_id:
+                    type: string
+                  room_id:
+                    type: string
+                    format: uuid
+                  started_at:
+                    type: string
+                    format: date-time
+                  ended_at:
+                    type: string
+                    format: date-time
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    recording-started:
+      post:
+        summary: Recording Started Callback
+        operationId: recording-started
+        description: A notification about recording being turned on in a specific session
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'recording:started'
+                  recording_id:
+                    type: string
+                    format: uuid
+                  session_id:
+                    type: string
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    recording-ended:
+      post:
+        summary: Recording Ended Callback
+        operationId: recording-stopped
+        description: A notification about recording being turned off in a specific session
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'recording:ended'
+                  recording_id:
+                    type: string
+                    format: uuid
+                  session_id:
+                    type: string
+                  started_at:
+                    type: string
+                    format: date-time
+                  ended_at:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: number
+                    description: Duration of the recording in seconds
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    recording-ready:
+      post:
+        summary: Recording Ready Callback
+        operationId: recording-ready
+        description: A notification about recording ready to be downloaded
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'recording:ready'
+                  recording_id:
+                    type: string
+                    format: uuid
+                  session_id:
+                    type: string
+                  room_id:
+                    type: string
+                    format: uuid
+                  started_at:
+                    type: string
+                    format: date-time
+                  ended_at:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: number
+                    description: Duration of the recording in seconds
+                  url:
+                    type: string
+                    format: uri
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    participant-joined:
+      post:
+        summary: Participant Joined Callback
+        operationId: participant-joined
+        description: A notification about someone joining a specific session
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'session:participant:joined'
+                  participant_id:
+                    type: string
+                    format: uuid
+                  session_id:
+                    type: string
+                  room_id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  is_host:
+                    description: indicates if this participant is the session's host
+                    type: boolean
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
+    participant-left:
+      post:
+        summary: Participant Left Callback
+        operationId: participant-left
+        description: A notification about someone leaving a specific session
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - 'session:participant:left'
+                  participant_id:
+                    type: string
+                    format: uuid
+                  session_id:
+                    type: string
+                  room_id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  is_host:
+                    description: indicates if this participant is the session's host
+                    type: boolean
+        responses:
+          '204':
+            description: Your server returns this code if it accepts the callback
 components:
   parameters:
     start_id_parameter:
