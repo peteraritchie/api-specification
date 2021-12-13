@@ -458,7 +458,7 @@ components:
         #   type: string
         #   description: The API key that made this Verify Request (may include subaccounts)
         #   example: "acbd1234"
-        total_cost:
+        price:
           type: number
           description: The total cost for this request so far, in EUR. This number may update as the request progresses.
         finalized_at:
