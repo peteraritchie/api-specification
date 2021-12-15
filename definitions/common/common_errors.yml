@@ -1,6 +1,6 @@
 ---
 components:
-  fields:
+  schemas:
     instance:
       description: Instance ID
       type: string
@@ -22,7 +22,7 @@ components:
                 type: string
                 example: THIS IS A PLACEHOLDER FOR OTHER ERRORS
               instance:
-                $ref: "#/components/fields/instance"
+                $ref: "#/components/schemas/instance"
     BadCredentialsError:
       description: Credential is missing or invalid
       content:
@@ -39,7 +39,7 @@ components:
                 type: string
                 example: You did not provide correct credentials.
               instance:
-                $ref: "#/components/fields/instance"
+                $ref: "#/components/schemas/instance"
     NotFoundError:
       description: Resource Not Found
       content:
@@ -56,7 +56,7 @@ components:
                 type: string
                 example: ID 'ABC123' does not exist, or you do not have access
               instance:
-                $ref: "#/components/fields/instance"
+                $ref: "#/components/schemas/instance"
     InvalidRequestMethod:
       description: Invalid Request Method
       content:
@@ -73,7 +73,7 @@ components:
                 type: string
                 example: Request method 'TRACE' not supported
               instance:
-                $ref: "#/components/fields/instance"
+                $ref: "#/components/schemas/instance"
     InvalidAcceptHeader:
       description: Invalid Accept Header
       content:
@@ -90,7 +90,7 @@ components:
                 type: string
                 example: "Invalid Accept header provided. Must be one of the following: 'application/json'"
               instance:
-                $ref: "#/components/fields/instance"
+                $ref: "#/components/schemas/instance"
     UnsupportedContentTypeHeader:
       description: Unsupported Content Type Header
       content:
@@ -107,4 +107,25 @@ components:
                 type: string
                 example: "Unsupported Content-Type header provided. Must be one of the following: 'application/json'"
               instance:
-                $ref: "#/components/fields/instance"
+                $ref: "#/components/schemas/instance"
+    ThrottledError:
+      description: Too many requests
+      content:
+        application/json:
+          schema:
+            properties:
+              type:
+                type: string
+                example: "https://developer.nexmo.com/api-errors#throttled"
+              title:
+                type: string
+                example: Too many requests
+              detail:
+                type: string
+                example: Your account has reached it's API limit and has been throttled
+              instance:
+                $ref: "#/components/schemas/instance"
+              retry_after:
+                description: Time in seconds the client should wait before sending a new request
+                type: integer
+                example: 30
