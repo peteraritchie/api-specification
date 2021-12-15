@@ -567,6 +567,12 @@ components:
                             example: /v2/pools?page=10
 
   schemas:
+  
+    Instance:
+      description: Instance ID
+      type: string
+      example: 797a8f199c45014ab7b08bfe9cc1c12c
+
     AccountId:
       description: Account ID to work against
       example: abcd1234
@@ -632,7 +638,7 @@ components:
           description: Additional information about the error
           example: "API key 'ABC123' does not exist, or you do not have access"
         instance:
-          $ref: "common/common_errors.yml#/components/fields/instance"
+          $ref: "#/components/schemas/Instance"
 
     ErrorAccountIdMismatch:
       allOf:
